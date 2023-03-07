@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo, useState } from "react";
 import { Tab } from "react-bootstrap";
 import dayjs from "dayjs";
@@ -10,36 +11,44 @@ import CoinBuyTable from "./Coin/CoinBuyTable";
 import CoinSellTable from "./Coin/CoinSellTable";
 
 const CoinDetails = () => {
-  const [startTime, setStartTime] = useState(
-    dayjs().set("minute", 0).set("second", 0)
-  );
-  const [endTime, setEndTime] = useState(
-    dayjs().set("minute", 59).set("second", 59)
-  );
-  const { messages: orderbooks, sendMessage } = useSocket("orderBooks");
+  const [startTime] = useState(dayjs().set("minute", 0).set("second", 0));
+  const [endTime] = useState(dayjs().set("minute", 59).set("second", 59));
+  const [orderbooks, sendWSMessage] = useSocket("orderBooks");
+  const [sessions] = useSocket("sessions");
+  const [marketSummaryData] = useSocket("marketSummary");
+
+  const orderbooksDeps = JSON.stringify(orderbooks);
 
   useEffect(() => {
-    sendMessage("getOrderbook", {
+    sendWSMessage("getSession", "hour");
+    sendWSMessage("getMarketSummaryData", "hour");
+    sendWSMessage("getOrderbook", {
       startTime: startTime.toString(),
       endTime: endTime.toString(),
     });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startTime.format("HH:mm:ss"), endTime.format("HH:mm:ss")]);
+  }, []);
 
   const bid = useMemo(() => {
     return orderbooks
       .filter((order) => order.side === "buy")
       .sort((a, b) => b.price - a.price)
       .slice(0, 5);
-  }, [orderbooks]);
+  }, [orderbooksDeps]);
 
   const ask = useMemo(() => {
     return orderbooks
       .filter((order) => order.side === "sell")
       .sort((a, b) => a.price - b.price)
       .slice(0, 5);
-  }, [orderbooks]);
+  }, [orderbooksDeps]);
+
+  const handleOrder = (order) => {
+    sendWSMessage("sendOrder", {
+      orderType: "limit",
+      accountNo: "10050201", // Binding user id when authed
+      ...order,
+    });
+  };
 
   return (
     <>
@@ -53,11 +62,13 @@ const CoinDetails = () => {
                     <CoinChart
                       startTime={startTime.format("HH:mm:ss")}
                       endTime={endTime.format("HH:mm:ss")}
+                      sessions={sessions}
+                      marketSummaryData={marketSummaryData}
                     />
                   </div>
 
                   <div className="col-xl-6 col-sm-6">
-                    <QuickTrade />
+                    <QuickTrade handleOrder={handleOrder} />
                   </div>
 
                   <div className="col-xl-3 col-sm-6">

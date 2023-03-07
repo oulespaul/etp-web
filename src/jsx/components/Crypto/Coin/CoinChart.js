@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import loadable from "@loadable/component";
 import pMinDelay from "p-min-delay";
-import useSocket from "../../../../hooks/useSocket";
 import { formatNumber } from "../../../../utils/formatNumber";
 
 const BitCoinChart = loadable(() => pMinDelay(import("./BitCoinChart"), 1000));
@@ -20,18 +19,7 @@ const transformData = (sessions) => {
   });
 };
 
-const CoinChart = ({ startTime, endTime }) => {
-  const [timeframe, setTimeframe] = useState("hour");
-  const { messages: sessions, sendMessage } = useSocket("sessions");
-  const { messages: marketSummaryData, sendMessage: sendMessageSecondary } =
-    useSocket("marketSummary");
-
-  useEffect(() => {
-    sendMessage("getSession", timeframe);
-    sendMessageSecondary("getMarketSummaryData", timeframe);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeframe]);
-
+const CoinChart = ({ startTime, endTime, sessions, marketSummaryData }) => {
   const series = useMemo(() => {
     return [{ data: transformData(sessions) }];
   }, [sessions]);

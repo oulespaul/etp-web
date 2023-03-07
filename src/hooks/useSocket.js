@@ -24,7 +24,7 @@ const useSocket = (eventName) => {
     socketRef.current.emit(event, messageBody);
   };
 
-  return { messages, sendMessage };
+  return [messages, sendMessage];
 };
 
 export default useSocket;
