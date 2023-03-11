@@ -1,10 +1,37 @@
 import React, { Fragment } from "react";
-// images
-import qrcode from "../../../../../images/qr.png";
-import logo from "../../../../../images/logo/logo-color.png";
-import logoText from "../../../../../images/logo/logo-text-color.png";
+import useAxios from "../../../../../hooks/useAxios";
+import FileSaver from "file-saver";
+import { connect } from "react-redux";
+import { formatDatetime } from "../../../../../utils/formatDatetime";
+import { Button } from "react-bootstrap";
 
-const Invoice = () => {
+const Invoice = ({ user }) => {
+  const [invoiceData, invoiceDataErr, invoiceDataLoading] = useAxios({
+    url: `/trade/invoice/${user?.clientId}`,
+    method: "GET",
+  });
+  const [, , , downloadInvoice] = useAxios(
+    {
+      url: `/trade/invoice/download/${user?.clientId}`,
+      method: "GET",
+      responseType: "blob",
+    },
+    false
+  );
+
+  const downloadInvoiceHandler = async () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const fileName = `${user.clientId}_${year}${month}.pdf`;
+
+    const response = await downloadInvoice();
+
+    return FileSaver.saveAs(response, fileName);
+  };
+
+  if (invoiceDataLoading) return <>Loading...</>;
+
   return (
     <Fragment>
       <div className="row">
@@ -12,156 +39,64 @@ const Invoice = () => {
           <div className="card mt-3">
             <div className="card-header">
               {" "}
-              Invoice <strong>01/01/01/2018</strong>{" "}
-              <span className="float-right">
-                <strong>Status:</strong> Pending
-              </span>{" "}
+              <strong>Last Update: {formatDatetime(new Date())}</strong>{" "}
+              {invoiceData && (
+                <Button
+                  className="me-2"
+                  variant="primary"
+                  onClick={downloadInvoiceHandler}
+                >
+                  Download
+                </Button>
+              )}
             </div>
+
             <div className="card-body">
-              <div className="row mb-5">
-                <div className="mt-4 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                  <h6>From:</h6>
-                  <div>
-                    {" "}
-                    <strong>Webz Poland</strong>{" "}
-                  </div>
-                  <div>Madalinskiego 8</div>
-                  <div>71-101 Szczecin, Poland</div>
-                  <div>Email: info@webz.com.pl</div>
-                  <div>Phone: +48 444 666 3333</div>
-                </div>
-                <div className="mt-4 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                  <h6>To:</h6>
-                  <div>
-                    {" "}
-                    <strong>Bob Mart</strong>{" "}
-                  </div>
-                  <div>Attn: Daniel Marek</div>
-                  <div>43-190 Mikolow, Poland</div>
-                  <div>Email: marek@daniel.com</div>
-                  <div>Phone: +48 123 456 789</div>
-                </div>
-                <div className="mt-4 col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-center justify-content-xs-start">
-                  <div className="row align-items-center">
-                    <div className="col-sm-9">
-                      {/* <div className="brand-logo mb-3">
-                        <div className="d-flex align-items-center">
-                          <img className="logo-abbr me-3" src={logo} alt="" style={{width:'50px'}}  />
-                          <h3 className="mb-1 font-w600">Travl</h3>
-                        </div> 
-                         <img className="logo-compact" src={logoText} alt="" style={{width:'170px'}} /> 
-                      </div> */}
-                      <div className="brand-logo mb-2">
-                        <img src={logo} alt="" className="width-50 me-2" />
-                        <img src={logoText} alt="" className="width-200" />
-                      </div>
-                      <span>
-                        Please send exact amount:{" "}
-                        <strong className="d-block">0.15050000 BTC</strong>
-                        <strong>1DonateWffyhwAjskoEwXt83pHZxhLTr8H</strong>
-                      </span>
-                      <br />
-                      <small className="text-muted">
-                        Current exchange rate 1BTC = $6590 USD
-                      </small>
-                    </div>
-                    <div className="col-sm-3 mt-3">
-                      {" "}
-                      <img
-                        src={qrcode}
-                        className="img-fluid width110"
-                        alt=""
-                      />{" "}
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="table-responsive">
                 <table className="table table-border">
-                  <thead>
+                  {!invoiceDataErr ? (
+                    <>
+                      <thead>
+                        <tr>
+                          <th className="text-center">Item</th>
+                          <th className="text-center">Kwh</th>
+                          <th className="text-center">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {invoiceData?.items?.slice(0, 3).map((item) => (
+                          <tr>
+                            <td className="text-center">{item.task}</td>
+                            <td className="text-center">{item.quantity}</td>
+                            <td className="text-center">{item.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      <div className="row">
+                        <div className="col-lg-4 col-sm-5 ms-auto">
+                          <table className="table table-clear">
+                            <tbody>
+                              {invoiceData?.items?.slice(3, 7).map((item) => (
+                                <tr>
+                                  <td className="left">
+                                    <strong>{item.task}</strong>
+                                  </td>
+                                  <td className="right">{item.value}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
                     <tr>
-                      <th className="center">#</th>
-                      <th>Item</th>
-                      <th>Description</th>
-                      <th className="right">Unit Cost</th>
-                      <th className="center">Qty</th>
-                      <th className="right">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="center">1</td>
-                      <td className="left strong">Origin License</td>
-                      <td className="left">Extended License</td>
-                      <td className="right">$999,00</td>
-                      <td className="center">1</td>
-                      <td className="right">$999,00</td>
-                    </tr>
-                    <tr>
-                      <td className="center">2</td>
-                      <td className="left">Custom Services</td>
-                      <td className="left">
-                        Instalation and Customization (cost per hour)
+                      <td colspan="6" style={{ textAlign: "center" }}>
+                        <h5>Invoice this month not found</h5>
                       </td>
-                      <td className="right">$150,00</td>
-                      <td className="center">20</td>
-                      <td className="right">$3.000,00</td>
                     </tr>
-                    <tr>
-                      <td className="center">3</td>
-                      <td className="left">Hosting</td>
-                      <td className="left">1 year subcription</td>
-                      <td className="right">$499,00</td>
-                      <td className="center">1</td>
-                      <td className="right">$499,00</td>
-                    </tr>
-                    <tr>
-                      <td className="center">4</td>
-                      <td className="left">Platinum Support</td>
-                      <td className="left">1 year subcription 24/7</td>
-                      <td className="right">$3.999,00</td>
-                      <td className="center">1</td>
-                      <td className="right">$3.999,00</td>
-                    </tr>
-                  </tbody>
+                  )}
                 </table>
-              </div>
-              <div className="row">
-                <div className="col-lg-4 col-sm-5"> </div>
-                <div className="col-lg-4 col-sm-5 ms-auto">
-                  <table className="table table-clear">
-                    <tbody>
-                      <tr>
-                        <td className="left">
-                          <strong>Subtotal</strong>
-                        </td>
-                        <td className="right">$8.497,00</td>
-                      </tr>
-                      <tr>
-                        <td className="left">
-                          <strong>Discount (20%)</strong>
-                        </td>
-                        <td className="right">$1,699,40</td>
-                      </tr>
-                      <tr>
-                        <td className="left">
-                          <strong>VAT (10%)</strong>
-                        </td>
-                        <td className="right">$679,76</td>
-                      </tr>
-                      <tr>
-                        <td className="left">
-                          <strong>Total</strong>
-                        </td>
-                        <td className="right">
-                          <strong>$7.477,36</strong>
-                          <br />
-                          <strong>0.15050000 BTC</strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
@@ -171,4 +106,8 @@ const Invoice = () => {
   );
 };
 
-export default Invoice;
+const mapStateToProps = (state) => {
+  return { user: state.auth.auth };
+};
+
+export default connect(mapStateToProps)(Invoice);

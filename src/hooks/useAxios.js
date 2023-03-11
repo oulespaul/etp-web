@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useAxios = (configParams) => {
+const useAxios = (configParams, isLoadOnMount = true) => {
   axios.defaults.baseURL = process.env.REACT_APP_BE_URL + "/api";
 
   const [res, setRes] = useState("");
@@ -9,14 +9,19 @@ const useAxios = (configParams) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchDataUsingAxios(configParams);
+    if (isLoadOnMount) {
+      fetchDataUsingAxios(configParams);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchDataUsingAxios = async () => {
-    await axios
+    return axios
       .request(configParams)
-      .then((res) => setRes(res.data))
+      .then((res) => {
+        setRes(res.data);
+        return res.data;
+      })
       .catch((err) => setErr(err))
       .finally(() => setLoading(false));
   };

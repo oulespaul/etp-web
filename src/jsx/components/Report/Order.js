@@ -65,7 +65,7 @@ const Order = ({ user }) => {
                     ) : (
                       <tr>
                         <td colspan="6" style={{ textAlign: "center" }}>
-                          Open order not found
+                          <h5>Open order not found</h5>
                         </td>
                       </tr>
                     )}
