@@ -9,6 +9,7 @@ import defaultAvatar from "../../../images/profile/default-avatar.png";
 const Header = ({ onNote }) => {
   const [rightSelect, setRightSelect] = useState("Eng");
   const [headerFix, setheaderFix] = useState(false);
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setheaderFix(window.scrollY > 50);

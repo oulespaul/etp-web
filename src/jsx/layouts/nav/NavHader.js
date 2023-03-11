@@ -1,9 +1,6 @@
-import React, { useContext, useState } from "react";
-/// React router dom
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../../../context/ThemeContext";
 
-//images
 import logo1 from "./../../../images/logo/logo.png";
 import logoColor from "./../../../images/logo/logo-color.png";
 
@@ -20,8 +17,7 @@ export function NavMenuToggle() {
 
 const NavHader = () => {
   const [toggle, setToggle] = useState(false);
-  const { navigationHader, openMenuToggle, background } =
-    useContext(ThemeContext);
+
   return (
     <div className="nav-header">
       <Link to="/" className="brand-logo">

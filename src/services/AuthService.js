@@ -1,5 +1,4 @@
 import axios from "axios";
-import swal from "sweetalert";
 import { loginConfirmedAction, Logout } from "../store/actions/AuthActions";
 
 axios.defaults.baseURL = process.env.REACT_APP_BE_URL + "/api";
@@ -22,22 +21,9 @@ export function login(key) {
 }
 
 export function formatError(errorResponse) {
-  switch (errorResponse.error.message) {
-    case "EMAIL_EXISTS":
-      //return 'Email already exists';
-      swal("Oops", "Email already exists", "error");
-      break;
-    case "EMAIL_NOT_FOUND":
-      //return 'Email not found';
-      swal("Oops", "Email not found", "error", { button: "Try Again!" });
-      break;
-    case "INVALID_PASSWORD":
-      //return 'Invalid Password';
-      swal("Oops", "Invalid Password", "error", { button: "Try Again!" });
-      break;
-    case "USER_DISABLED":
-      return "User Disabled";
-
+  switch (errorResponse.statusCode) {
+    case 401:
+      return "User key is invalid";
     default:
       return "";
   }
@@ -49,7 +35,6 @@ export function saveTokenInLocalStorage(key) {
 
 export function runLogoutTimer(dispatch, timer, navigate) {
   setTimeout(() => {
-    //dispatch(Logout(history));
     dispatch(Logout(navigate));
   }, timer);
 }

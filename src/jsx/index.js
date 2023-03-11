@@ -15,7 +15,6 @@ import CoinDetails from "./components/Crypto/CoinDetails";
 import Order from "./components/Report/Order";
 import Invoice from "./components/AppsMenu/Shop/Invoice/Invoice";
 
-import LockScreen from "./pages/LockScreen";
 import Error401 from "./pages/Error401";
 import Error404 from "./pages/Error404";
 import PrivateRoute from "./PrivateRoute";
@@ -35,7 +34,7 @@ const Markup = () => {
       <Routes>
         <Route exact path="/" element={<Navigate replace to="/exchange" />} />
 
-        <Route path="/exchanges" element={<LockScreen />} />
+        <Route path="/exchanges" element={<Login />} />
         <Route path="page-error-401" element={<Error401 />} />
         <Route path="page-error-404" element={<Error404 />} />
 

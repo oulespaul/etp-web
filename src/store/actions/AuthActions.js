@@ -35,8 +35,8 @@ export function signupAction(email, password, navigate) {
 }
 
 export function Logout(navigate) {
-  localStorage.removeItem("userDetails");
-  navigate("/login");
+  localStorage.removeItem("userKey");
+  navigate("/exchanges");
 
   return {
     type: LOGOUT_ACTION,
@@ -49,7 +49,7 @@ export function loginAction(userKey, navigate) {
       const response = await login(userKey);
       saveTokenInLocalStorage(userKey);
       await dispatch(loginConfirmedAction(response.data));
-      navigate("/exchange")
+      navigate("/exchange");
     } catch (error) {
       const errorMessage = formatError(error.response.data);
       dispatch(loginFailedAction(errorMessage));

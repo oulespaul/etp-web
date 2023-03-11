@@ -9,8 +9,9 @@ import CoinChart from "./Coin/CoinChart";
 import QuickTrade from "./Coin/QuickTrade";
 import CoinBuyTable from "./Coin/CoinBuyTable";
 import CoinSellTable from "./Coin/CoinSellTable";
+import { connect } from "react-redux";
 
-const CoinDetails = () => {
+const CoinDetails = ({ user }) => {
   const [startTime] = useState(dayjs().set("minute", 0).set("second", 0));
   const [endTime] = useState(dayjs().set("minute", 59).set("second", 59));
   const [orderbooks, sendWSMessage] = useSocket("orderBooks");
@@ -43,9 +44,11 @@ const CoinDetails = () => {
   }, [orderbooksDeps]);
 
   const handleOrder = (order) => {
+    if (!user.clientId) return;
+
     sendWSMessage("sendOrder", {
       orderType: "limit",
-      accountNo: "10050201", // Binding user id when authed
+      accountNo: user.clientId,
       ...order,
     });
   };
@@ -88,4 +91,10 @@ const CoinDetails = () => {
   );
 };
 
-export default CoinDetails;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.auth,
+  };
+};
+
+export default connect(mapStateToProps)(CoinDetails);
