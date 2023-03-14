@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Tab } from "react-bootstrap";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
 
 import useSocket from "../../../hooks/useSocket";
 
@@ -45,11 +46,31 @@ const CoinDetails = ({ user }) => {
 
   const handleOrder = (order) => {
     if (!user.clientId) return;
+    const isOrderBuy = order.side === "buy";
+    const value = order.price * order.quantity;
 
-    sendWSMessage("sendOrder", {
-      orderType: "limit",
-      accountNo: user.clientId,
-      ...order,
+    Swal.fire({
+      title: "Order confirmation",
+      html:
+        `<div><h5>Price: ${order.price} Bath</h5>` +
+        `<h5>Amount: ${order.quantity} Kwh</h5>` +
+        `<h5>Fee: ${value / 100} Kwh</h5>` +
+        `<h5>Total: ${value + value / 100} Kwh</h5></div>`,
+      showCancelButton: true,
+      confirmButtonColor: isOrderBuy ? "#00A389" : "#EB5757",
+      cancelButtonColor: "#A098AE",
+      confirmButtonText: isOrderBuy ? "Buy" : "Sell",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return sendWSMessage("sendOrder", {
+          orderType: "limit",
+          accountNo: user.clientId,
+          ...order,
+        });
+      }
+
+      return;
     });
   };
 
