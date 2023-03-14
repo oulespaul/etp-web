@@ -1,9 +1,20 @@
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
+import Select from "react-select";
+import dayjs from "dayjs";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { orderFormInputSchema } from "./schema/order-form-input";
 import { ArrowSideDownIcon } from "../../../../icons/material/arrow-side-down";
 import { ArrowSideUpIcon } from "../../../../icons/material/arrow-side-up";
+
+const timeOptions = [...Array(24 + 1).keys()].slice(1).map((time) => {
+  const label = dayjs()
+    .add(time + 1, "hour")
+    .set("minute", 0)
+    .set("second", 0)
+    .format("DD/MM/YYYY HH:mm:ss");
+  return { label, value: time };
+});
 
 const QuickTrade = ({ handleOrder }) => {
   const {
@@ -15,6 +26,7 @@ const QuickTrade = ({ handleOrder }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(orderFormInputSchema),
+    defaultValues: { orderTime: dayjs() },
   });
   const priceWatch = watch("price");
   const quantityWatch = watch("quantity");
@@ -31,12 +43,29 @@ const QuickTrade = ({ handleOrder }) => {
     reset();
   };
 
+  const onChangeScheduleTimeHandler = (value) => {
+    const timeSelected = dayjs()
+      .add(value.value, "hour")
+      .set("minute", 0)
+      .set("second", 0);
+
+    setValue("orderTime", timeSelected);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="card quick-trade">
         <div className="card-header pb-0 border-0 flex-wrap">
-          <div>
+          <div className="d-flex w-100 justify-content-between">
             <h4 className="heading mb-0">Trade</h4>
+
+            <div className="w-50">
+              <Select
+                onChange={onChangeScheduleTimeHandler}
+                options={timeOptions}
+                placeholder="Schedule Trade"
+              />
+            </div>
           </div>
         </div>
 

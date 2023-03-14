@@ -25,5 +25,6 @@ export const orderFormInputSchema = yup
       .positive()
       .required(),
     side: yup.string().oneOf(["buy", "sell"]),
+    orderTime: yup.string(),
   })
   .required();
