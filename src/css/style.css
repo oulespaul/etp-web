@@ -19191,6 +19191,11 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   border-color: #3A2D60;
   color: #fff; }
 
+[data-theme-version="dark"] .css-13cymwt-control {
+    background-color: #15073A;
+    border-color: #3A2D60;
+    color: #fff; }
+
 [data-theme-version="dark"] .form-select {
   background-color: #15073A;
   border-color: #3A2D60;
