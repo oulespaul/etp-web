@@ -1,30 +1,32 @@
 import * as yup from "yup";
 
-export const orderFormInputSchema = yup
-  .object({
-    price: yup
-      .number()
-      .typeError("Price is required a number")
-      .positive("Price must be a positive number")
-      .required()
-      .test(
-        "minimumIncrement",
-        "Range of price is not 0.25",
-        (value) => value % 0.25 === 0
-      ),
-    quantity: yup
-      .number()
-      .typeError("Amount is required a number")
-      .positive("Amount must be a positive number")
-      .required()
-      .test(
-        "minimumIncrement",
-        "Range of amount is not 1",
-        (value) => value % 1 === 0
-      )
-      .positive()
-      .required(),
-    side: yup.string().oneOf(["buy", "sell"]),
-    orderTime: yup.string(),
-  })
-  .required();
+export const orderFormInputSchema = (t) => {
+  return yup
+    .object({
+      price: yup
+        .number()
+        .typeError(t("exchange.orderForm.error.priceRequired"))
+        .positive(t("exchange.orderForm.error.priceRequired"))
+        .required()
+        .test(
+          "minimumIncrement",
+          t("exchange.orderForm.error.priceStep"),
+          (value) => value % 0.25 === 0
+        ),
+      quantity: yup
+        .number()
+        .typeError(t("exchange.orderForm.error.amountRequired"))
+        .positive(t("exchange.orderForm.error.amountRequired"))
+        .required()
+        .test(
+          "minimumIncrement",
+          t("exchange.orderForm.error.amountStep"),
+          (value) => value % 1 === 0
+        )
+        .positive()
+        .required(),
+      side: yup.string().oneOf(["buy", "sell"]),
+      orderTime: yup.string(),
+    })
+    .required();
+};

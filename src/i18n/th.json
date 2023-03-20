@@ -1,0 +1,73 @@
+{
+  "translation": {
+    "menu": {
+      "exchange": "ตลาดซื้อ-ขาย",
+      "open,orders": "รายการซื้อ-ขาย",
+      "invoice": "ใบแจ้งค่าใช้จ่าย"
+    },
+    "nav": {
+      "menu": {
+        "profile": "โปรไฟล์",
+        "logout": "ออกจากระบบ"
+      }
+    },
+    "exchange": {
+      "title": "ตลาดซื้อ-ขาย",
+      "tradeTime": "รอบเวลาการซื้อ-ขาย",
+      "chartSection": {
+        "title": "แลกเปลี่ยนพลังงาน",
+        "lastPrice": "ราคาล่าสุด",
+        "value": "มูลค่า (24ชม.)",
+        "volume": "ปริมาณ (24ชม.)",
+        "avaragePrice": "ราคาเฉลี่ย",
+        "buy": "ซื้อ",
+        "sell": "ขาย"
+      },
+      "orderForm": {
+        "title": "ซื้อ-ขาย",
+        "scheduleTitle": "ซื้อ-ขาย ล่วงหน้า",
+        "priceTitle": "ราคา",
+        "pricePlaceholder": "ช่วงราคาเพิ่มทีละ 0.25",
+        "amountTitle": "ปริมาณ",
+        "amountPlaceholder": "ช่วงปริมาณเพิ่มทีละ 1",
+        "feeTitle": "ค่าธรรมเนียม (1%)",
+        "totalTitle": "รวม",
+        "error": {
+          "priceRequired": "กรุณากรอกราคา",
+          "priceStep": "ช่วงราคาเพิ่มได้ทีละ 0.25 เท่านั้น",
+          "amountRequired": "กรุณากรอกปริมาณ",
+          "amountStep": "ช่วงปริมาณเพิ่มได้ทีละ 1 เท่านั้น"
+        }
+      },
+      "orderbooks": {
+        "title": {
+          "buy": "รายการซื้อ",
+          "sell": "รายการขาย"
+        },
+        "priceTitle": "ราคา",
+        "amountTitle": "ปริมาณ"
+      }
+    },
+    "openOrder": {
+      "field": {
+        "orderTime": "เวลาทำรายการ",
+        "side": "ประเภท",
+        "price": "ราคา",
+        "volume": "ปริมาณ",
+        "remaingVolume": "ปริมาณคงเหลือ",
+        "status": "สถานะ"
+      },
+      "orderNotfound": "ไม่พบรายการที่เปิดอยู่"
+    },
+    "invoice": {
+      "lastUpdate": "อัพเดตครั้งล่าสุดเมื่อ",
+      "field": {
+        "item": "รายการ",
+        "qty": "จำนวน",
+        "total": "รวม"
+      },
+      "download": "ส่งออกบิล",
+      "invoiceNotfound": "ไม่พบบิลในเดือนนี้"
+    }
+  }
+}

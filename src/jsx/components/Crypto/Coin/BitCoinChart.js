@@ -8,7 +8,7 @@ class BitCoinChart extends React.Component {
     this.state = {
       series: [
         {
-          name: "New Clients",
+          name: "Trade",
         },
       ],
       options: {

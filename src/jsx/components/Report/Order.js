@@ -1,10 +1,12 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import useAxios from "../../../hooks/useAxios";
 import { formatDatetime } from "../../../utils/formatDatetime";
 import { formatNumber } from "../../../utils/formatNumber";
 
 const Order = ({ user }) => {
+  const { t } = useTranslation();
   const [orders, , loading] = useAxios({
     url: `/order/${user.clientId}`,
     method: "GET",
@@ -23,14 +25,22 @@ const Order = ({ user }) => {
                 >
                   <thead>
                     <tr>
-                      <th className="">Order Time</th>
-                      <th className="fs-14 font-w600">Side</th>
-                      <th className="fs-14 font-w600 text-center">Price</th>
-                      <th className="fs-14 font-w600 text-center">Volume</th>
-                      <th className="fs-14 font-w600 text-center">
-                        Remaining volume
+                      <th className="">{t("openOrder.field.orderTime")}</th>
+                      <th className="fs-14 font-w600">
+                        {t("openOrder.field.side")}
                       </th>
-                      <th className="fs-14 font-w600">Status</th>
+                      <th className="fs-14 font-w600 text-center">
+                        {t("openOrder.field.price")}
+                      </th>
+                      <th className="fs-14 font-w600 text-center">
+                        {t("openOrder.field.volume")}
+                      </th>
+                      <th className="fs-14 font-w600 text-center">
+                        {t("openOrder.field.remaingVolume")}
+                      </th>
+                      <th className="fs-14 font-w600">
+                        {t("openOrder.field.status")}
+                      </th>
                     </tr>
                   </thead>
 
@@ -64,8 +74,8 @@ const Order = ({ user }) => {
                       ))
                     ) : (
                       <tr>
-                        <td colspan="6" style={{ textAlign: "center" }}>
-                          <h5>Open order not found</h5>
+                        <td colSpan="6" style={{ textAlign: "center" }}>
+                          <h5>{t("openOrder.orderNotfound")}</h5>
                         </td>
                       </tr>
                     )}

@@ -4,8 +4,10 @@ import FileSaver from "file-saver";
 import { connect } from "react-redux";
 import { formatDatetime } from "../../../../../utils/formatDatetime";
 import { Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const Invoice = ({ user }) => {
+  const { t } = useTranslation();
   const [invoiceData, invoiceDataErr, invoiceDataLoading] = useAxios({
     url: `/trade/invoice/${user?.clientId}`,
     method: "GET",
@@ -39,14 +41,16 @@ const Invoice = ({ user }) => {
           <div className="card mt-3">
             <div className="card-header">
               {" "}
-              <strong>Last Update: {formatDatetime(new Date())}</strong>{" "}
+              <strong>
+                {t("invoice.lastUpdate")}: {formatDatetime(new Date())}
+              </strong>{" "}
               {invoiceData && (
                 <Button
                   className="me-2"
                   variant="primary"
                   onClick={downloadInvoiceHandler}
                 >
-                  Download
+                  {t("invoice.download")}
                 </Button>
               )}
             </div>
@@ -58,11 +62,17 @@ const Invoice = ({ user }) => {
                     <>
                       <thead>
                         <tr>
-                          <th className="text-center">Item</th>
+                          <th className="text-center">
+                            {t("invoice.field.item")}
+                          </th>
                           <th></th>
                           <th></th>
-                          <th className="text-center">Qty</th>
-                          <th className="text-center">Total</th>
+                          <th className="text-center">
+                            {t("invoice.field.qty")}
+                          </th>
+                          <th className="text-center">
+                            {t("invoice.field.total")}
+                          </th>
                         </tr>
                       </thead>
 
@@ -80,8 +90,8 @@ const Invoice = ({ user }) => {
                     </>
                   ) : (
                     <tr>
-                      <td colspan="6" style={{ textAlign: "center" }}>
-                        <h5>Invoice this month not found</h5>
+                      <td colSpan="6" style={{ textAlign: "center" }}>
+                        <h5>{t("invoice.invoiceNotfound")}</h5>
                       </td>
                     </tr>
                   )}

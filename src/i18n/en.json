@@ -1,0 +1,73 @@
+{
+  "translation": {
+    "menu": {
+      "exchange": "Exchange",
+      "open,orders": "Open Order",
+      "invoice": "Invoice"
+    },
+    "nav": {
+      "menu": {
+        "profile": "Profile",
+        "logout": "Logout"
+      }
+    },
+    "exchange": {
+      "title": "Exchange",
+      "tradeTime": "Trade Period",
+      "chartSection": {
+        "title": "Energy Trade",
+        "lastPrice": "Last Price",
+        "value": "Value (24hr)",
+        "volume": "Volume (24hr)",
+        "avaragePrice": "Average Price",
+        "buy": "BUY",
+        "sell": "SELL"
+      },
+      "orderForm": {
+        "title": "Trade",
+        "scheduleTitle": "Schedule Trade",
+        "priceTitle": "Price",
+        "pricePlaceholder": "Range of price is 0.25",
+        "amountTitle": "Amount",
+        "amountPlaceholder": "Range of amount is 1",
+        "feeTitle": "Fee (1%)",
+        "totalTitle": "Total",
+        "error": {
+          "priceRequired": "Price is required",
+          "priceStep": "Range of price is step 0.25",
+          "amountRequired": "Amount is required",
+          "amountStep": "Range of amount is step 1"
+        }
+      },
+      "orderbooks": {
+        "title": {
+          "buy": "Buy Order",
+          "sell": "Sell Order"
+        },
+        "priceTitle": "Price",
+        "amountTitle": "Amount"
+      }
+    },
+    "openOrder": {
+      "field": {
+        "orderTime": "Order Time",
+        "side": "Side",
+        "price": "Price",
+        "volume": "Amount",
+        "remaingVolume": "Remaining Volume",
+        "status": "Status"
+      },
+      "orderNotfound": "Open order not found"
+    },
+    "invoice": {
+      "lastUpdate": "Last Update",
+      "field": {
+        "item": "Item",
+        "qty": "Qty",
+        "total": "Total"
+      },
+      "download": "Download",
+      "invoiceNotfound": "Invoice this month not found"
+    }
+  }
+}

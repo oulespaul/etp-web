@@ -14,6 +14,7 @@ import Home from "./components/Dashboard/Home";
 import CoinDetails from "./components/Crypto/CoinDetails";
 import Order from "./components/Report/Order";
 import Invoice from "./components/AppsMenu/Shop/Invoice/Invoice";
+import AppProfile from "./components/AppsMenu/AppProfile/AppProfile";
 
 import Error401 from "./pages/Error401";
 import Error404 from "./pages/Error404";
@@ -27,6 +28,7 @@ const Markup = () => {
     { url: "exchange", component: <CoinDetails /> },
     { url: "open-orders", component: <Order /> },
     { url: "invoice", component: <Invoice /> },
+    { url: "profile", component: <AppProfile /> },
   ];
 
   return (

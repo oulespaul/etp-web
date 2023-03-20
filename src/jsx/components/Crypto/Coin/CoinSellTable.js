@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const CoinSellTable = ({ bgChangeSell, items }) => {
+  const { t } = useTranslation();
   if (!items) return <></>;
 
   return (
@@ -8,7 +10,9 @@ const CoinSellTable = ({ bgChangeSell, items }) => {
       <div className="card price-list">
         <div className="card-header border-0 pb-2">
           <div className="chart-title">
-            <h4 className={`mb-0 text-${bgChangeSell}`}>Sell Order</h4>
+            <h4 className={`mb-0 text-${bgChangeSell}`}>
+              {t("exchange.orderbooks.title.sell")}
+            </h4>
           </div>
         </div>
         <div className="card-body p-3 py-0">
@@ -18,8 +22,12 @@ const CoinSellTable = ({ bgChangeSell, items }) => {
             >
               <thead>
                 <tr>
-                  <th className="text-left">Price</th>
-                  <th className="text-center">Amount</th>
+                  <th className="text-left">
+                    {t("exchange.orderbooks.priceTitle")}
+                  </th>
+                  <th className="text-center">
+                    {t("exchange.orderbooks.amountTitle")}
+                  </th>
                 </tr>
               </thead>
               <tbody>

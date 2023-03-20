@@ -11,6 +11,7 @@ import QuickTrade from "./Coin/QuickTrade";
 import CoinBuyTable from "./Coin/CoinBuyTable";
 import CoinSellTable from "./Coin/CoinSellTable";
 import { connect } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const CoinDetails = ({ user }) => {
   const [startTime] = useState(dayjs().set("minute", 0).set("second", 0));
@@ -18,6 +19,7 @@ const CoinDetails = ({ user }) => {
   const [orderbooks, sendWSMessage] = useSocket("orderBooks");
   const [sessions] = useSocket("sessions");
   const [marketSummaryData] = useSocket("marketSummary");
+  const { t } = useTranslation();
 
   const orderbooksDeps = JSON.stringify(orderbooks);
 

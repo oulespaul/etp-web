@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { orderFormInputSchema } from "./schema/order-form-input";
 import { ArrowSideDownIcon } from "../../../../icons/material/arrow-side-down";
 import { ArrowSideUpIcon } from "../../../../icons/material/arrow-side-up";
+import { useTranslation } from "react-i18next";
 
 const timeOptions = [...Array(24 + 1).keys()].slice(1).map((time) => {
   const label = dayjs()
@@ -17,6 +18,8 @@ const timeOptions = [...Array(24 + 1).keys()].slice(1).map((time) => {
 });
 
 const QuickTrade = ({ handleOrder }) => {
+  const { t } = useTranslation();
+
   const {
     register,
     handleSubmit,
@@ -25,7 +28,7 @@ const QuickTrade = ({ handleOrder }) => {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(orderFormInputSchema),
+    resolver: yupResolver(orderFormInputSchema(t)),
     defaultValues: { orderTime: dayjs() },
   });
   const priceWatch = watch("price");
@@ -57,13 +60,13 @@ const QuickTrade = ({ handleOrder }) => {
       <div className="card quick-trade">
         <div className="card-header pb-0 border-0 flex-wrap">
           <div className="d-flex w-100 justify-content-between">
-            <h4 className="heading mb-0">Trade</h4>
+            <h4 className="heading mb-0">{t("exchange.orderForm.title")}</h4>
 
             <div className="w-50">
               <Select
                 onChange={onChangeScheduleTimeHandler}
                 options={timeOptions}
-                placeholder="Schedule Trade"
+                placeholder={t("exchange.orderForm.scheduleTitle")}
               />
             </div>
           </div>
@@ -77,11 +80,13 @@ const QuickTrade = ({ handleOrder }) => {
                   errors?.price && "input-danger"
                 }`}
               >
-                <span className="input-group-text">Price</span>
+                <span className="input-group-text">
+                  {t("exchange.orderForm.priceTitle")}
+                </span>
                 <input
                   className="form-control form-control text-end"
                   type="number"
-                  placeholder="Range of price is 0.25"
+                  placeholder={t("exchange.orderForm.pricePlaceholder")}
                   step="0.25"
                   {...register("price")}
                 />
@@ -95,21 +100,25 @@ const QuickTrade = ({ handleOrder }) => {
                   errors?.price && "input-danger"
                 }`}
               >
-                <span className="input-group-text">Amount</span>
+                <span className="input-group-text">
+                  {t("exchange.orderForm.amountTitle")}
+                </span>
                 <input
                   className="form-control form-control text-end"
                   type="number"
-                  placeholder="Range of amount is 1.00"
+                  placeholder={t("exchange.orderForm.amountPlaceholder")}
                   step="1"
                   {...register("quantity")}
                 />
               </div>
               {errors.quantity && (
-                <p className="text-danger">Amount is required</p>
+                <p className="text-danger">{errors.quantity.message}</p>
               )}
 
               <div className="input-group mb-3 ">
-                <span className="input-group-text">Fee (1%)</span>
+                <span className="input-group-text">
+                  {t("exchange.orderForm.feeTitle")}
+                </span>
                 <input
                   className="form-control form-control text-end"
                   type="number"
@@ -120,7 +129,9 @@ const QuickTrade = ({ handleOrder }) => {
               </div>
 
               <div className="input-group mb-3 ">
-                <span className="input-group-text">Total</span>
+                <span className="input-group-text">
+                  {t("exchange.orderForm.totalTitle")}
+                </span>
                 <input
                   className="form-control form-control text-end"
                   type="number"
@@ -143,7 +154,7 @@ const QuickTrade = ({ handleOrder }) => {
                 value="buy"
                 onClick={() => setValue("side", "buy")}
               >
-                BUY
+                {t("exchange.chartSection.buy")}
                 <ArrowSideUpIcon />
               </button>
             </div>
@@ -156,7 +167,7 @@ const QuickTrade = ({ handleOrder }) => {
                 value="sell"
                 onClick={() => setValue("side", "sell")}
               >
-                SELL
+                {t("exchange.chartSection.sell")}
                 <ArrowSideDownIcon />
               </button>
             </div>
