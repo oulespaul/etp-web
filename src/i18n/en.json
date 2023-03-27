@@ -3,7 +3,8 @@
     "menu": {
       "exchange": "Exchange",
       "open,orders": "Open Order",
-      "invoice": "Invoice"
+      "invoice": "Invoice",
+      "profile": "Profile"
     },
     "nav": {
       "menu": {
