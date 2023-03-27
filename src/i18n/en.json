@@ -27,10 +27,12 @@
         "title": "Trade",
         "scheduleTitle": "Schedule Trade",
         "priceTitle": "Price",
+        "priceUnit": "Baht",
         "pricePlaceholder": "Range of price is 0.25",
         "amountTitle": "Amount",
+        "amountUnit": "kWh",
         "amountPlaceholder": "Range of amount is 1",
-        "feeTitle": "Fee (1%)",
+        "feeTitle": "Fee (0.25฿/kWh)",
         "totalTitle": "Total",
         "error": {
           "priceRequired": "Price is required",
@@ -51,10 +53,10 @@
     "openOrder": {
       "field": {
         "orderTime": "Order Time",
-        "side": "Side",
-        "price": "Price",
-        "volume": "Amount",
-        "remaingVolume": "Remaining Volume",
+        "side": "Buy/Sell",
+        "price": "Price (Baht)",
+        "volume": "Amount (kWh)",
+        "remaingVolume": "Remaining Volume (kWh)",
         "status": "Status"
       },
       "orderNotfound": "Open order not found"

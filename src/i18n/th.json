@@ -27,10 +27,12 @@
         "title": "ซื้อ-ขาย",
         "scheduleTitle": "ซื้อ-ขาย ล่วงหน้า",
         "priceTitle": "ราคา",
+        "priceUnit": "บาท",
         "pricePlaceholder": "ช่วงราคาเพิ่มทีละ 0.25",
         "amountTitle": "ปริมาณ",
+        "amountUnit": "kWh",
         "amountPlaceholder": "ช่วงปริมาณเพิ่มทีละ 1",
-        "feeTitle": "ค่าธรรมเนียม (1%)",
+        "feeTitle": "ค่าธรรมเนียม (0.25฿/kWh)",
         "totalTitle": "รวม",
         "error": {
           "priceRequired": "กรุณากรอกราคา",
@@ -51,10 +53,10 @@
     "openOrder": {
       "field": {
         "orderTime": "เวลาทำรายการ",
-        "side": "ประเภท",
-        "price": "ราคา",
-        "volume": "ปริมาณ",
-        "remaingVolume": "ปริมาณคงเหลือ",
+        "side": "ซื้อ/ขาย",
+        "price": "ราคา (บาท)",
+        "volume": "ปริมาณ ​(kWh)",
+        "remaingVolume": "ปริมาณคงเหลือ (kWh)",
         "status": "สถานะ"
       },
       "orderNotfound": "ไม่พบรายการที่เปิดอยู่"
@@ -66,7 +68,7 @@
         "qty": "จำนวน",
         "total": "รวม"
       },
-      "download": "ส่งออกบิล",
+      "download": "ดาวน์โหลด",
       "invoiceNotfound": "ไม่พบบิลในเดือนนี้"
     }
   }

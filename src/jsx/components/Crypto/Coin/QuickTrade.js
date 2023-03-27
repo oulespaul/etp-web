@@ -90,6 +90,9 @@ const QuickTrade = ({ handleOrder }) => {
                   step="0.25"
                   {...register("price")}
                 />
+                <span className="input-group-text">
+                  {t("exchange.orderForm.priceUnit")}
+                </span>
               </div>
               {errors.price && (
                 <p className="text-danger">{errors.price.message}</p>
@@ -110,6 +113,9 @@ const QuickTrade = ({ handleOrder }) => {
                   step="1"
                   {...register("quantity")}
                 />
+                <span className="input-group-text">
+                  {t("exchange.orderForm.amountUnit")}
+                </span>
               </div>
               {errors.quantity && (
                 <p className="text-danger">{errors.quantity.message}</p>
@@ -123,9 +129,12 @@ const QuickTrade = ({ handleOrder }) => {
                   className="form-control form-control text-end"
                   type="number"
                   placeholder="0.00"
-                  value={value / 100}
+                  value={quantityWatch * 0.25}
                   disabled
                 />
+                <span className="input-group-text">
+                  {t("exchange.orderForm.priceUnit")}
+                </span>
               </div>
 
               <div className="input-group mb-3 ">
@@ -139,6 +148,9 @@ const QuickTrade = ({ handleOrder }) => {
                   value={value + value / 100}
                   disabled
                 />
+                <span className="input-group-text">
+                  {t("exchange.orderForm.priceUnit")}
+                </span>
               </div>
             </div>
           </div>

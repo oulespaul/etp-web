@@ -77,15 +77,25 @@ const Invoice = ({ user }) => {
                       </thead>
 
                       <tbody>
-                        {invoiceData?.items?.slice(0, 3).map((item) => (
-                          <tr>
-                            <td className="text-center">{item.task}</td>
-                            <td className="left"></td>
-                            <td className="left"></td>
-                            <td className="text-center">{item.quantity}</td>
-                            <td className="text-center">{item.value}</td>
-                          </tr>
-                        ))}
+                        {invoiceData?.items?.map((item) => {
+                          return item.quantity ? (
+                            <tr>
+                              <td className="text-center">{item.task}</td>
+                              <td className="left"></td>
+                              <td className="left"></td>
+                              <td className="text-center">{item.quantity}</td>
+                              <td className="text-center">{item.value}</td>
+                            </tr>
+                          ) : (
+                            <tr>
+                              <td className="left"></td>
+                              <td className="left"></td>
+                              <td className="left"></td>
+                              <td className="text-center">{item.task}</td>
+                              <td className="text-center">{item.value}</td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </>
                   ) : (
@@ -96,23 +106,6 @@ const Invoice = ({ user }) => {
                     </tr>
                   )}
                 </table>
-                <div className="row">
-                  <div className="col-lg-4 col-sm-5"> </div>
-                  <div className="col-lg-4 col-sm-5 ms-auto">
-                    <table className="table table-clear">
-                      <tbody>
-                        {invoiceData?.items?.slice(3, 7).map((item) => (
-                          <tr>
-                            <td className="left">
-                              <strong>{item.task}</strong>
-                            </td>
-                            <td className="right">{item.value}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

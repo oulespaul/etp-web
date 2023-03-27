@@ -5,6 +5,10 @@ import useAxios from "../../../hooks/useAxios";
 import { formatDatetime } from "../../../utils/formatDatetime";
 import { formatNumber } from "../../../utils/formatNumber";
 
+const getClassTextColor = (side) => {
+  return side === "buy" ? "text-success" : "text-danger";
+};
+
 const Order = ({ user }) => {
   const { t } = useTranslation();
   const [orders, , loading] = useAxios({
@@ -49,20 +53,40 @@ const Order = ({ user }) => {
                       orders.map((item, index) => (
                         <tr key={index}>
                           <td>
-                            <span className="font-w600 fs-14">
+                            <span
+                              className={`font-w600 fs-14 ${getClassTextColor(
+                                item.side
+                              )}`}
+                            >
                               {formatDatetime(item.orderTime)}
                             </span>
                           </td>
-                          <td className="fs-14 font-w500">
+                          <td
+                            className={`fs-14 font-w500 ${getClassTextColor(
+                              item.side
+                            )}`}
+                          >
                             {item.side === "buy" ? "Buy" : "Sell"}
                           </td>
-                          <td className="text-center">
+                          <td
+                            className={`text-center ${getClassTextColor(
+                              item.side
+                            )}`}
+                          >
                             {formatNumber(item.price)}
                           </td>
-                          <td className="text-center">
+                          <td
+                            className={`text-center ${getClassTextColor(
+                              item.side
+                            )}`}
+                          >
                             {formatNumber(item.quantity)}
                           </td>
-                          <td className="text-center">
+                          <td
+                            className={`text-center ${getClassTextColor(
+                              item.side
+                            )}`}
+                          >
                             {formatNumber(item.remainingQuantity)}
                           </td>
                           <td>

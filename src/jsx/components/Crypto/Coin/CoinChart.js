@@ -81,13 +81,13 @@ const CoinChart = ({ startTime, endTime, sessions, marketSummaryData }) => {
                 <span className="text-success me-2">
                   {t("exchange.chartSection.buy")}
                 </span>{" "}
-                {formatNumber(summaryData?.buyQuantity)} Kwh
+                {formatNumber(summaryData?.buyQuantity)} kWh
               </h4>
               <h4 className="font-w600 mb-0">
                 <span className="text-danger me-2">
                   {t("exchange.chartSection.sell")}
                 </span>{" "}
-                {formatNumber(summaryData?.sellQuantity)} Kwh
+                {formatNumber(summaryData?.sellQuantity)} kWh
               </h4>
             </div>
           </div>
