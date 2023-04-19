@@ -56,8 +56,8 @@ const CoinDetails = ({ user }) => {
       html:
         `<div><h5>Price: ${order.price} Baht</h5>` +
         `<h5>Amount: ${order.quantity} kWh</h5>` +
-        `<h5>Fee: ${value / 100} kWh</h5>` +
-        `<h5>Total: ${value + value / 100} kWh</h5></div>`,
+        `<h5>Fee: ${value / 100} Baht</h5>` +
+        `<h5>Total: ${value + value / 100} Baht</h5></div>`,
       showCancelButton: true,
       confirmButtonColor: isOrderBuy ? "#00A389" : "#EB5757",
       cancelButtonColor: "#A098AE",
