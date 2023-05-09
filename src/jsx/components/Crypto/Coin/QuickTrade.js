@@ -145,7 +145,7 @@ const QuickTrade = ({ handleOrder }) => {
                   className="form-control form-control text-end"
                   type="number"
                   placeholder="0.00"
-                  value={value + value / 100}
+                  value={value + quantityWatch * 0.25}
                   disabled
                 />
                 <span className="input-group-text">
