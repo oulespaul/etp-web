@@ -46,6 +46,7 @@ export function Logout(navigate) {
 export function loginAction(userKey, navigate) {
   return async (dispatch) => {
     try {
+      localStorage.removeItem("userKey");
       const response = await login(userKey);
       saveTokenInLocalStorage(userKey);
       await dispatch(loginConfirmedAction(response.data));
