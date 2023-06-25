@@ -189,7 +189,7 @@ const SideBar = () => {
             }
           })}
 
-          <li>
+          {/* <li>
             <Link
               to={"#"}
               style={{
@@ -208,7 +208,7 @@ const SideBar = () => {
                 {isDarkActive ? "light_mode" : "dark_mode"}
               </i>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </PerfectScrollbar>
     </div>
