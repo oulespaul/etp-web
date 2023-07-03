@@ -60,7 +60,8 @@
         "remaingVolume": "ปริมาณคงเหลือ (kWh)",
         "status": "สถานะ"
       },
-      "orderNotfound": "ไม่พบรายการที่เปิดอยู่"
+      "orderNotfound": "ไม่พบรายการที่เปิดอยู่",
+      "cancel": "ยกเลิก"
     },
     "invoice": {
       "lastUpdate": "อัพเดตครั้งล่าสุดเมื่อ",
