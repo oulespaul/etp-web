@@ -60,7 +60,8 @@
         "remaingVolume": "Remaining Volume (kWh)",
         "status": "Status"
       },
-      "orderNotfound": "Open order not found"
+      "orderNotfound": "Open order not found",
+      "cancel": "Cancel"
     },
     "invoice": {
       "lastUpdate": "Last Update",

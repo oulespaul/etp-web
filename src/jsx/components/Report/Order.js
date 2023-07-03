@@ -1,9 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+
 import useAxios from "../../../hooks/useAxios";
 import { formatDatetime } from "../../../utils/formatDatetime";
 import { formatNumber } from "../../../utils/formatNumber";
+import axios from "axios";
 
 const getClassTextColor = (side) => {
   return side === "buy" ? "text-success" : "text-danger";
@@ -11,10 +15,44 @@ const getClassTextColor = (side) => {
 
 const Order = ({ user }) => {
   const { t } = useTranslation();
-  const [orders, , loading] = useAxios({
+  const [orders, , , fetchOrder] = useAxios({
     url: `/order/${user.clientId}`,
     method: "GET",
   });
+
+  const onCalcelSubmitHandler = (item) => {
+    Swal.fire({
+      title: "ต้องการยกเลิกรายการคำสั่ง ?",
+      showCancelButton: true,
+      confirmButtonText: "ตกลง",
+      cancelButtonText: "ยกเลิก",
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        return axios
+          .request({
+            url: `/order/${item.order_id}`,
+            method: "PATCH",
+          })
+          .then((res) => {
+            if (res.data) {
+              fetchOrder()
+              toast.success("ยกเลิกรายการคำสั่งสำเร็จ", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
+          });
+      }
+
+      return;
+    });
+  };
 
   return (
     <>
@@ -45,6 +83,7 @@ const Order = ({ user }) => {
                       <th className="fs-14 font-w600">
                         {t("openOrder.field.status")}
                       </th>
+                      <th className="fs-14 font-w600"></th>
                     </tr>
                   </thead>
 
@@ -93,6 +132,15 @@ const Order = ({ user }) => {
                             <span className={`label label-warning`}>
                               {item.status}
                             </span>
+                          </td>
+                          <td className={`text-center`}>
+                            <button
+                              className="btn d-flex btn-danger px-4 py-1"
+                              name="calcelOrderBtn"
+                              onClick={() => onCalcelSubmitHandler(item)}
+                            >
+                              {t("openOrder.cancel")}
+                            </button>
                           </td>
                         </tr>
                       ))
