@@ -18,9 +18,10 @@ function Login(props) {
 
   useEffect(() => {
     if (userKey) {
-      dispatch(loginAction(userKey, navigate));
+      const key = query.get("Authorization");
+      dispatch(loginAction(key, navigate));
     }
-  }, [dispatch, navigate, userKey]);
+  }, [dispatch, navigate, query, userKey]);
 
   function onLogin(e) {
     e.preventDefault();
