@@ -2,11 +2,14 @@ import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 import dayjs from "dayjs";
+import { connect } from "react-redux";
+import { useTranslation } from "react-i18next";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { orderFormInputSchema } from "./schema/order-form-input";
+
 import { ArrowSideDownIcon } from "../../../../icons/material/arrow-side-down";
 import { ArrowSideUpIcon } from "../../../../icons/material/arrow-side-up";
-import { useTranslation } from "react-i18next";
 
 const timeOptions = [...Array(24 + 1).keys()].slice(1).map((time) => {
   const label = dayjs()
@@ -17,7 +20,7 @@ const timeOptions = [...Array(24 + 1).keys()].slice(1).map((time) => {
   return { label, value: time };
 });
 
-const QuickTrade = ({ handleOrder }) => {
+const QuickTrade = ({ handleOrder, user }) => {
   const { t } = useTranslation();
 
   const {
@@ -40,6 +43,12 @@ const QuickTrade = ({ handleOrder }) => {
 
     return valueCal;
   }, [priceWatch, quantityWatch]);
+
+  const isConsumerStation = useMemo(() => {
+    const userType = user?.station || "";
+
+    return userType.startsWith("Consumer");
+  }, [user.station]);
 
   const onSubmit = (data) => {
     handleOrder(data);
@@ -158,7 +167,7 @@ const QuickTrade = ({ handleOrder }) => {
 
         <div className="card-footer border-0">
           <div className="row">
-            <div className="col-6">
+            <div className={`${isConsumerStation ? "col-12" : "col-6"}`}>
               <button
                 className="btn d-flex  btn-success justify-content-between w-100"
                 type="submit"
@@ -171,18 +180,20 @@ const QuickTrade = ({ handleOrder }) => {
               </button>
             </div>
 
-            <div className="col-6">
-              <button
-                className="btn d-flex btn-danger justify-content-between w-100"
-                type="submit"
-                name="orderType"
-                value="sell"
-                onClick={() => setValue("side", "sell")}
-              >
-                {t("exchange.chartSection.sell")}
-                <ArrowSideDownIcon />
-              </button>
-            </div>
+            {!isConsumerStation && (
+              <div className="col-6">
+                <button
+                  className="btn d-flex btn-danger justify-content-between w-100"
+                  type="submit"
+                  name="orderType"
+                  value="sell"
+                  onClick={() => setValue("side", "sell")}
+                >
+                  {t("exchange.chartSection.sell")}
+                  <ArrowSideDownIcon />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -190,4 +201,10 @@ const QuickTrade = ({ handleOrder }) => {
   );
 };
 
-export default QuickTrade;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.auth,
+  };
+};
+
+export default connect(mapStateToProps)(QuickTrade);
