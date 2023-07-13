@@ -4,7 +4,8 @@
       "exchange": "Exchange",
       "open,orders": "Open Order",
       "invoice": "Invoice",
-      "profile": "Profile"
+      "profile": "Profile",
+      "trade,history": "Trade History"
     },
     "nav": {
       "menu": {
@@ -72,6 +73,13 @@
       },
       "download": "Download",
       "invoiceNotfound": "Invoice this month not found"
+    },
+    "tradeHistory": {
+      "siteOptions": {
+        "all": "All Trade Matching",
+        "local": "Local",
+        "global": "Global"
+      }
     }
   }
 }

@@ -101,6 +101,10 @@ export const MenuList = [
         title: "Open orders",
         to: "open-orders",
       },
+      {
+        title: "Trade history",
+        to: "trade-history",
+      },
       // {
       //   title: "Report",
       //   to: "reports",
