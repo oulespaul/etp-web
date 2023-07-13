@@ -4,7 +4,8 @@
       "exchange": "ตลาดซื้อ-ขาย",
       "open,orders": "รายการซื้อ-ขาย",
       "invoice": "ใบแจ้งค่าใช้จ่าย",
-      "profile": "โปรไฟล์"
+      "profile": "โปรไฟล์",
+      "trade,history": "ประวัติการทำรายการ"
     },
     "nav": {
       "menu": {
@@ -72,6 +73,13 @@
       },
       "download": "ดาวน์โหลด",
       "invoiceNotfound": "ไม่พบบิลในเดือนนี้"
+    },
+    "tradeHistory": {
+      "siteOptions": {
+        "all": "การจับคู่ทั้งหมด",
+        "local": "การจับคู่ภายใน",
+        "global": "การจับคู่ภายนอก"
+      }
     }
   }
 }

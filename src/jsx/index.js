@@ -19,6 +19,7 @@ import AppProfile from "./components/AppsMenu/AppProfile/AppProfile";
 import Error401 from "./pages/Error401";
 import Error404 from "./pages/Error404";
 import PrivateRoute from "./PrivateRoute";
+import Trade from "./components/Report/Trade";
 
 const Login = lazy(() => import("./pages/Login"));
 
@@ -27,6 +28,7 @@ const Markup = () => {
     { url: "dashboard", component: <Home /> },
     { url: "exchange", component: <CoinDetails /> },
     { url: "open-orders", component: <Order /> },
+    { url: "trade-history", component: <Trade /> },
     { url: "invoice", component: <Invoice /> },
     { url: "profile", component: <AppProfile /> },
   ];
