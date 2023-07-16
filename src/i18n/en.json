@@ -65,6 +65,7 @@
       "cancel": "Cancel"
     },
     "invoice": {
+      "monthlyTitle": "Month",
       "lastUpdate": "Last Update",
       "field": {
         "item": "Item",

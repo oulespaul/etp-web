@@ -65,11 +65,12 @@
       "cancel": "ยกเลิก"
     },
     "invoice": {
+      "monthlyTitle": "เดือน",
       "lastUpdate": "อัพเดตครั้งล่าสุดเมื่อ",
       "field": {
         "item": "รายการ",
-        "qty": "จำนวน",
-        "total": "รวม"
+        "qty": "จำนวนที่ใช้ (หน่วย : kWh)",
+        "total": "จำนวนเงิน (บาท)"
       },
       "download": "ดาวน์โหลด",
       "invoiceNotfound": "ไม่พบบิลในเดือนนี้"

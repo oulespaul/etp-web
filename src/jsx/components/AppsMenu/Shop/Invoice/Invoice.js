@@ -41,9 +41,17 @@ const Invoice = ({ user }) => {
           <div className="card mt-3">
             <div className="card-header">
               {" "}
-              <strong>
-                {t("invoice.lastUpdate")}: {formatDatetime(new Date())}
-              </strong>{" "}
+              <div className="d-flex flex-column">
+                <strong>
+                  {t("invoice.monthlyTitle")}:{" "}
+                  {new Intl.DateTimeFormat("th-TH", { month: "long" }).format(
+                    new Date()
+                  )}
+                </strong>{" "}
+                <strong>
+                  {t("invoice.lastUpdate")}: {formatDatetime(new Date())}
+                </strong>{" "}
+              </div>
               {invoiceData && (
                 <Button
                   className="me-2"
