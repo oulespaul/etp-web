@@ -128,58 +128,65 @@ const Trade = ({ user }) => {
 
                   <tbody>
                     {tradeHistoryList.length > 0 ? (
-                      tradeHistoryList.map((item, index) => (
-                        <tr key={index}>
-                          <td>
-                            <span
-                              className={`font-w600 fs-14 ${getClassTextColor(
-                                item.incomingOrderSide
+                      tradeHistoryList.map((item, index) => {
+                        const isMaker =
+                          item.bookOrderAccountNo === user.clientId;
+                        const orderSide = isMaker
+                          ? item.bookOrderSide
+                          : item.incomingOrderSide;
+                        return (
+                          <tr key={index}>
+                            <td>
+                              <span
+                                className={`font-w600 fs-14 ${getClassTextColor(
+                                  orderSide
+                                )}`}
+                              >
+                                {formatDatetime(item.tradeTime)}
+                              </span>
+                            </td>
+                            <td
+                              className={`fs-14 font-w500 ${getClassTextColor(
+                                orderSide
                               )}`}
                             >
-                              {formatDatetime(item.tradeTime)}
-                            </span>
-                          </td>
-                          <td
-                            className={`fs-14 font-w500 ${getClassTextColor(
-                              item.incomingOrderSide
-                            )}`}
-                          >
-                            {item.incomingOrderSide === "buy" ? "Buy" : "Sell"}
-                          </td>
-                          <td
-                            className={`text-center ${getClassTextColor(
-                              item.incomingOrderSide
-                            )}`}
-                          >
-                            {formatNumber(item.price)}
-                          </td>
-                          <td
-                            className={`text-center ${getClassTextColor(
-                              item.incomingOrderSide
-                            )}`}
-                          >
-                            {formatNumber(item.quantity)}
-                          </td>
-                          <td
-                            className={`text-center ${getClassTextColor(
-                              item.incomingOrderSide
-                            )}`}
-                          >
-                            <span
-                              className={`label ${
-                                item.isLocal ? "label-info" : "label-warning"
-                              }`}
+                              {orderSide === "buy" ? "Buy" : "Sell"}
+                            </td>
+                            <td
+                              className={`text-center ${getClassTextColor(
+                                orderSide
+                              )}`}
                             >
-                              {item.isLocal ? "Local" : "Global"}
-                            </span>
-                          </td>
-                          <td>
-                            <span className={`label label-success`}>
-                              {item.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))
+                              {formatNumber(item.price)}
+                            </td>
+                            <td
+                              className={`text-center ${getClassTextColor(
+                                orderSide
+                              )}`}
+                            >
+                              {formatNumber(item.quantity)}
+                            </td>
+                            <td
+                              className={`text-center ${getClassTextColor(
+                                orderSide
+                              )}`}
+                            >
+                              <span
+                                className={`label ${
+                                  item.isLocal ? "label-info" : "label-warning"
+                                }`}
+                              >
+                                {item.isLocal ? "Local" : "Global"}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`label label-success`}>
+                                {item.status}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })
                     ) : (
                       <tr>
                         <td colSpan="6" style={{ textAlign: "center" }}>
